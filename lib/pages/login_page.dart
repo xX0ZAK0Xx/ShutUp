@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shutup/auth/auth_service.dart';
 import 'package:shutup/components/my_button.dart';
 import 'package:shutup/components/my_textfield.dart';
@@ -13,7 +14,18 @@ class LoginPage extends StatelessWidget {
   final void Function()? changePage;
 
   //---------Login---------
-  void login(BuildContext context) async{
+  void login(BuildContext context) async {
+    //------------- Loading -----------
+    showDialog(
+        context: context,
+        builder: ((context) {
+          return Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+              color: Colors.black,
+              size: 50,
+            ),
+          );
+        }));
     //---------------- auth service --------------------
     final authService = AuthService();
 
@@ -21,9 +33,11 @@ class LoginPage extends StatelessWidget {
     try {
       await authService.signInWithEmailPassword(
           _emailController.text, _passwordController.text);
+      Navigator.of(context).pop();
     }
     //---------------- catch error --------------------
     catch (e) {
+      Navigator.of(context).pop();
       showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -43,84 +57,86 @@ class LoginPage extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         child: SafeArea(
           child: Center(
-                  child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 120,),
-            //-----------logo-----------
-            Icon(
-              Icons.message,
-              size: 60,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-          
-            //-----------Welcome Back-----------
-            Text(
-              "Welcome Back",
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text("You've been missed", style: TextStyle(fontSize: 18)),
-            SizedBox(
-              height: 30,
-            ),
-          
-            //-----------Email TextField-----------
-            MyTextField(
-              hintText: "Enter Your Email",
-              controller: _emailController,
-              isPassword: false,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            //-----------Password TextField-----------
-            MyTextField(
-              hintText: "Enter Your Password",
-              isPassword: true,
-              controller: _passwordController,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            //-----------Login Button-----------
-            MyButton(
-              text: "Log in",
-              ontap: () => login(context),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-          
-            //-----------Register Now-----------
-            Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Not a member? ",
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 20),
+                SizedBox(
+                  height: 120,
                 ),
-                GestureDetector(
-                    onTap: changePage,
-                    child: Text(
-                      "Register now",
+                //-----------logo-----------
+                Icon(
+                  Icons.message,
+                  size: 60,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+
+                //-----------Welcome Back-----------
+                Text(
+                  "Welcome Back",
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("You've been missed", style: TextStyle(fontSize: 18)),
+                SizedBox(
+                  height: 30,
+                ),
+
+                //-----------Email TextField-----------
+                MyTextField(
+                  hintText: "Enter Your Email",
+                  controller: _emailController,
+                  isPassword: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //-----------Password TextField-----------
+                MyTextField(
+                  hintText: "Enter Your Password",
+                  isPassword: true,
+                  controller: _passwordController,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                //-----------Login Button-----------
+                MyButton(
+                  text: "Log in",
+                  ontap: () => login(context),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                //-----------Register Now-----------
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Not a member? ",
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )),
+                          fontSize: 20),
+                    ),
+                    GestureDetector(
+                        onTap: changePage,
+                        child: Text(
+                          "Register now",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                  ],
+                )
               ],
-            )
-          ],
-                  ),
-                ),
+            ),
+          ),
         ),
       ),
     );

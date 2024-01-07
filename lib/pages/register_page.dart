@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shutup/auth/auth_service.dart';
 import 'package:shutup/components/my_button.dart';
 import 'package:shutup/components/my_textfield.dart';
@@ -15,6 +16,17 @@ class RegisterPage extends StatelessWidget {
 
   //---------Register---------
   void register(BuildContext context) async {
+    //------------- Loading -----------
+    showDialog(
+        context: context,
+        builder: ((context) {
+          return Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+              color: Colors.black,
+              size: 50,
+            ),
+          );
+        }));
     final _auth = AuthService();
 
     //---------------- If Password matches ----------------------
@@ -24,20 +36,22 @@ class RegisterPage extends StatelessWidget {
           _emailController.text,
           _passwordController.text,
         );
+        Navigator.of(context).pop();
       } //---------------- catch error --------------------
       catch (e) {
+        Navigator.of(context).pop();
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
                   title: Text(e.toString()),
                 ));
       }
-    }else{
+    } else {
       showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                  title: Text("Passwords dont match"),
-                ));
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("Passwords dont match"),
+              ));
     }
   }
 
@@ -55,7 +69,9 @@ class RegisterPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 80,),
+              SizedBox(
+                height: 80,
+              ),
               //-----------logo-----------
               Icon(
                 Icons.message,
@@ -65,7 +81,7 @@ class RegisterPage extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-        
+
               //-----------Welcome Back-----------
               Text(
                 "Welcome",
@@ -74,7 +90,7 @@ class RegisterPage extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-        
+
               //-----------Email TextField-----------
               MyTextField(
                 hintText: "Enter Your Email",
@@ -110,7 +126,7 @@ class RegisterPage extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-        
+
               //-----------Register Now-----------
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
