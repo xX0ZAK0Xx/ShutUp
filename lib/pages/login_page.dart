@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:shutup/auth/auth_service.dart';
+import 'package:shutup/services/auth/auth_service.dart';
 import 'package:shutup/components/my_button.dart';
 import 'package:shutup/components/my_textfield.dart';
 
