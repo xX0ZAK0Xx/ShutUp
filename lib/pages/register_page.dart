@@ -48,90 +48,94 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: SafeArea(
-          child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //-----------logo-----------
-            Icon(
-              Icons.message,
-              size: 60,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-
-            //-----------Welcome Back-----------
-            Text(
-              "Welcome",
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-
-            //-----------Email TextField-----------
-            MyTextField(
-              hintText: "Enter Your Email",
-              controller: _emailController,
-              isPassword: false,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            //-----------Password TextField-----------
-            MyTextField(
-              hintText: "Enter Your Password",
-              isPassword: true,
-              controller: _passwordController,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            //-----------Password TextField-----------
-            MyTextField(
-              hintText: "Confirm Password",
-              isPassword: true,
-              controller: _confirmPasswordController,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            //-----------Login Button-----------
-            MyButton(
-              text: "Register",
-              ontap: () => register(context),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-
-            //-----------Register Now-----------
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Already a member? ",
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 20),
-                ),
-                GestureDetector(
-                    onTap: changePage,
-                    child: Text(
-                      "Login now",
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )),
-              ],
-            )
-          ],
-        ),
-      )),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: SafeArea(
+            child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 80,),
+              //-----------logo-----------
+              Icon(
+                Icons.message,
+                size: 60,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+        
+              //-----------Welcome Back-----------
+              Text(
+                "Welcome",
+                style: TextStyle(fontSize: 20),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+        
+              //-----------Email TextField-----------
+              MyTextField(
+                hintText: "Enter Your Email",
+                controller: _emailController,
+                isPassword: false,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              //-----------Password TextField-----------
+              MyTextField(
+                hintText: "Enter Your Password",
+                isPassword: true,
+                controller: _passwordController,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              //-----------Password TextField-----------
+              MyTextField(
+                hintText: "Confirm Password",
+                isPassword: true,
+                controller: _confirmPasswordController,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              //-----------Login Button-----------
+              MyButton(
+                text: "Register",
+                ontap: () => register(context),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+        
+              //-----------Register Now-----------
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already a member? ",
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 20),
+                  ),
+                  GestureDetector(
+                      onTap: changePage,
+                      child: Text(
+                        "Login now",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
+                ],
+              )
+            ],
+          ),
+        )),
+      ),
     );
   }
 }

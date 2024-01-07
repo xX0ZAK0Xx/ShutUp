@@ -39,11 +39,14 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: SafeArea(
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: SafeArea(
           child: Center(
-        child: Column(
+                  child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 120,),
             //-----------logo-----------
             Icon(
               Icons.message,
@@ -53,7 +56,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-
+          
             //-----------Welcome Back-----------
             Text(
               "Welcome Back",
@@ -66,7 +69,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-
+          
             //-----------Email TextField-----------
             MyTextField(
               hintText: "Enter Your Email",
@@ -93,7 +96,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-
+          
             //-----------Register Now-----------
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -116,8 +119,10 @@ class LoginPage extends StatelessWidget {
               ],
             )
           ],
+                  ),
+                ),
         ),
-      )),
+      ),
     );
   }
 }
