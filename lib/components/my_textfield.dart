@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class MyTextField extends StatefulWidget {
   final String hintText;
   final TextEditingController controller;
   final bool isPassword;
+  final FocusNode? focusNode;
 
   const MyTextField({
     super.key,
     required this.hintText,
     required this.controller,
-    required this.isPassword,
+    required this.isPassword, this.focusNode, 
   });
 
   @override
@@ -31,6 +31,7 @@ class _MyTextFieldState extends State<MyTextField> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
+        focusNode: widget.focusNode,
         obscureText: _isObscured,
         controller: widget.controller,
         decoration: InputDecoration(
@@ -49,12 +50,20 @@ class _MyTextFieldState extends State<MyTextField> {
           hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
           suffixIcon: widget.isPassword
               ? Container(
-                margin: EdgeInsets.all(10),
-                child: IconButton(
-                    icon: _isObscured? const Icon(Icons.visibility_off, color: Color.fromARGB(255, 134, 134, 134),) : const Icon(Icons.visibility, color: Color.fromARGB(255, 134, 134, 134),),
+                  margin: EdgeInsets.all(10),
+                  child: IconButton(
+                    icon: _isObscured
+                        ? const Icon(
+                            Icons.visibility_off,
+                            color: Color.fromARGB(255, 134, 134, 134),
+                          )
+                        : const Icon(
+                            Icons.visibility,
+                            color: Color.fromARGB(255, 134, 134, 134),
+                          ),
                     onPressed: () => setState(() => _isObscured = !_isObscured),
                   ),
-              )
+                )
               : null,
         ),
       ),
